@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
-});
+}); */
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,3 +30,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::controller(PageController::class)->group(function()
+{
+    Route::get('/', 'home')->name('home');
+    Route::get('/blog', 'blog')->name('blog');
+    Route::get('/blog/{slug}', 'post')->name('post');
+});
