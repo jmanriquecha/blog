@@ -5,52 +5,51 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-    @auth
+    <header class="flex items-center justify-between py-4">
         {{-- Start nav --}}
+        <nav class="flex items-center flex-grow gap-4 justify-between w-full">
+            <div class="flex sm:justify-center space-x-4">
+                <img width="50px" src="{{ asset('images/logo.png') }}">
+                <a href="{{ route('home') }}"
+                    class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">
+                    Home
+                </a>
+                <a href="{{ route('blog') }}"
+                    class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Blog</a>
+            </div>
+            <div class="text-indigo-600">
+                <input type="search" class="border" placeholder="Search...">
+                @auth
+                    <a href="{{ route('posts.index') }}" target="_black"
+                        class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" target="_black"
+                        class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Login</a>
+                @endauth
 
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Blog</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('home') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('blog') }}">Blog</a>
-                        </li>
-
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
             </div>
         </nav>
+    </header>
 
-        {{-- End nav --}}
-        <div class="container">
-            @yield('content')
-        </div>
-    @else
-        <a href="{{ route('login') }}" @class(['btn btn-primary'])>Login</a>
-    @endauth
+    <div class="opacity-60 h-px mb-8"
+        style="
+        background: linear-gradient(to right,
+            rgba(200, 200, 200, 0) 0%,
+            rgba(200, 200, 200, 1) 30%,
+            rgba(200, 200, 200, 1) 70%,
+            rgba(200, 200, 200, 0) 100%
+        );
+    ">
+    </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
-    </script>
+    {{-- End nav --}}
+    <div class="container">
+        @yield('content')
+    </div>
 </body>
 
 </html>
