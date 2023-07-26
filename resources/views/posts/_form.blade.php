@@ -8,6 +8,20 @@
 </span>
 <input type="text" name="title" id="title" class="rouded border-gray-200 w-full mb-4"
     value="{{ old('title', $post->title) }}">
+
+<label for="slug" class="uppercase text-gray-700 text-xs">Url:
+    <span class="lowercase">
+        blog/mi-url-personalizada
+    </span>
+</label>
+<span class="text-xs text-red-600">
+    @error('slug')
+        {{ $message }}
+    @enderror
+</span>
+<input type="text" name="slug" id="slug" class="rouded border-gray-200 w-full mb-4"
+    value="{{ old('slug', $post->slug) }}">
+
 <label for="body" class="uppercase text-gray-700 text-xs">Contenido</label>
 <span class="text-xs text-red-600">
     @error('body')
