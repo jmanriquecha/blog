@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Post;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -15,7 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate();
+        $user = auth()->id(); //Obtiene usuario logueado
+        $posts = Post::latest()->where('user_id', $user)->paginate(10);
         return view('posts.index', compact('posts'));
     }
 
@@ -75,9 +77,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $post->update([
+            'title' => $title = $request->title,
+            'slug' => Str::slug($title),
+            'body' => $request->body,
+        ]);
+
+        return redirect(route('posts.edit', $post));
     }
 
     /**

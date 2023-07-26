@@ -14,7 +14,7 @@ class PageController extends Controller
 
     public function blog()
     {
-        $posts = Post::orderByDesc('created_at')->paginate(10);
+        $posts = Post::latest()->paginate(10);
 
         return view('blog.blog', ['posts' => $posts]);
     }
