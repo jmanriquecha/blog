@@ -20,8 +20,11 @@
                         Home
                     </a>
                 </div>
-                <div class="text-indigo-600">
-                    <input type="search" class="border" placeholder="Search...">
+                <div class="text-indigo-600 flex">
+                    <form action="{{ route('home') }}" method="GET">
+                        <input type="search" name="search" value="{{ request('search') }}" class="border-0"
+                            placeholder="Search...">
+                    </form>
                     @auth
                         <a href="{{ route('posts.index') }}" target="_black"
                             class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Dashboard</a>

@@ -7,9 +7,10 @@ use App\Models\Post;
 
 class PageController extends Controller
 {
-    public function home()
+    public function home(Request $request)
     {
-        $posts = Post::latest()->paginate(10);
+        $search = $request->search;
+        $posts = Post::where('title', 'LIKE', "%$search%")->latest()->paginate(10);
 
         return view('blog.home', ['posts' => $posts]);
     }
